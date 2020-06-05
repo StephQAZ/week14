@@ -3,23 +3,9 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#define path "C:\\Users\\27318\\Desktop\\大二下网络课程\\数字图像\\week14\\"
 
 using namespace std;
 using namespace cv;
-
-VideoCapture createInput(bool useCamera, std::string videoPath)
-{
-	//选择输入
-	VideoCapture capVideo;
-	if (useCamera) {
-		capVideo.open(0);
-	}
-	else {
-		capVideo.open(videoPath);
-	}
-	return capVideo;
-}
 
 int createMaskByKmeans(cv::Mat src, cv::Mat& mask)
 {
@@ -79,27 +65,7 @@ void segColor()
 
 int main()
 {
-	VideoCapture capture1("C:\\Users\\27318\\Desktop\\大二下网络课程\\数字图像\\week14\\pikachu.mp4");
-	VideoCapture capture2("C:\\Users\\27318\\Desktop\\大二下网络课程\\数字图像\\week14\\lizhu.mp4");
-	Mat frame1,frame2;
-	while (1)
-	{
-		capture1 >> frame1;
-		capture2 >> frame2;
-		Mat src1 = frame1;
-		resize(frame2, frame2, frame1.size());
-
-		Mat src2 = frame2;
-
-		Mat mask = Mat::zeros(src1.size(), CV_8UC1);
-		createMaskByKmeans(src1, mask);
-		src1.copyTo(src2, mask);
-		imshow("src2", src2);
-		//imshow("src1", src1);
-		//imshow("mask", mask);
-
-		waitKey(10);
-	}
+	segColor();
 	return 0;
 }
 
